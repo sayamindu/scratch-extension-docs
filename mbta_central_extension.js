@@ -5,7 +5,7 @@ new(function() {
     ext.next_inbound = function(callback) {
         request_params = {
             api_key: "wX9NwuHnZU2ToO7GmGR9uw",
-            stop: "70069",
+            stop: "Back Bay",
             max_time: 60,
             format: "json"
         };
@@ -128,7 +128,7 @@ new(function() {
     var descriptor = {
         blocks: [
             //['', 'set voice to %m.voices', 'set_voice', ''],
-            ['R', 'Get next inbound train at Central Sq.', 'next_inbound'],
+            ['R', 'Get next inbound train at Back Bay', 'next_inbound'],
             ['R', 'Get next outbound train at Central Sq.', 'next_outbound'],
             ['R', 'Get next inbound train prediction at Central Sq.', 'next_inbound_prediction'],
             ['R', 'Get next outbound train prediction at Central Sq.', 'next_outbound_prediction']

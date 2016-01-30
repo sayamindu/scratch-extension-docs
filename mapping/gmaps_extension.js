@@ -72,6 +72,7 @@ new(function() {
                 else{
                     marker.setPosition(position);
                 }
+                street_view.setPosition(position);
             }
         
         });
@@ -90,6 +91,10 @@ new(function() {
     
     };
 
+    ext.walk = function() {
+        street_view.setPano((street_view.getLinks()[0].pano))
+    };
+
     var descriptor = {
         blocks: [
             //['', 'set voice to %m.voices', 'set_voice', ''],
@@ -97,7 +102,8 @@ new(function() {
             ['', 'pan to %s', 'pan_to', 'Boston, MA'],
             ['', 'close map', 'close_map', ''],
             ['', 'set zoom to %n', 'set_zoom', 8],
-            ['', 'toggle street view', 'toggle_street_view', '']
+            ['', 'toggle street view', 'toggle_street_view', ''],
+            ['', 'walk down the street', 'walk', '']
 
 
         ],
