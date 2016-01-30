@@ -26,6 +26,7 @@ new(function() {
     };
     
     var map;
+    var street_view;
     ext.open_map = function() {
         $("#map_container").show();
         $('#map_container').animate({ width: "500px", height: "500px", display: "inline-block"} , 400, "swing", function(){
@@ -35,15 +36,30 @@ new(function() {
                       zoom: 8
                             });
     
-          var ctaLayer = new google.maps.KmlLayer({
-            url: 'http://kml-samples.googlecode.com/svn/trunk/kml/Placemark/placemark.kml',
-            preserveViewport: true,
-            map: map
+            street_view = new google.maps.StreetViewPanorama(document.getElementById('map_container'),
+                    {
+                        position: map.getCenter(),
+                        pov: {
+                            heading: 34,
+                            pitch: 10
+                        },
+                        visible: false
+                    }
+            );
+            map.setStreetView(street_view);
+            var ctaLayer = new google.maps.KmlLayer({
+                url: 'http://kml-samples.googlecode.com/svn/trunk/kml/Placemark/placemark.kml',
+                preserveViewport: true,
+                map: map
             });
     
-    });
-    
+        });
     };
+
+    ext.set_zoom = function(zoom){
+        map.setZoom(zoom);
+    };
+
     var marker;
     ext.pan_to = function(place){
         new google.maps.Geocoder().geocode({address: place}, function(result, geoStatus){
@@ -62,6 +78,13 @@ new(function() {
 
     };
 
+    ext.toggle_street_view = function() {
+        street_view.setVisible(!street_view.getVisible());
+        if(street_view.getVisible() && marker){
+            street_view.setPosition(marker.getPosition());
+        }
+    };
+
     ext.close_map = function() {
         $('#map_container').animate({ width: "0px", height: "0px", display: "none"} , 400, "swing");
     
@@ -72,7 +95,9 @@ new(function() {
             //['', 'set voice to %m.voices', 'set_voice', ''],
             ['', 'open map', 'open_map', ''],
             ['', 'pan to %s', 'pan_to', 'Boston, MA'],
-            ['', 'close map', 'close_map', '']
+            ['', 'close map', 'close_map', ''],
+            ['', 'set zoom to %n', 'set_zoom', 8],
+            ['', 'toggle street view', 'toggle_street_view', '']
 
 
         ],
