@@ -1,7 +1,7 @@
 new(function() {
     var ready = false;
 
-    $("body").prepend("<div id='map_container' style='display: inline-block;'></div");
+    $("body").prepend("<div id='map_container' style='display: inline-block; position: absolute; z-index: 1; top: 72px; left: 5px;'></div");
     $("#map_container").hide();
 
     window.initMap = function() {
@@ -28,9 +28,7 @@ new(function() {
     var map;
     var street_view;
     ext.open_map = function() {
-        $("#map_container").show();
-        $('#map_container').animate({ width: "500px", height: "500px", display: "inline-block"} , 400, "swing", function(){
-
+        if(!map){
             map = new google.maps.Map(document.getElementById('map_container'), {
                   center: {lng: -122.087461, lat: 37.422069 },
                       zoom: 8
@@ -52,8 +50,11 @@ new(function() {
                 preserveViewport: true,
                 map: map
             });
-    
-        });
+        }
+        var center = map.getCenter();
+        $("#map_container").show();
+        $('#map_container').animate({ width: "480px", height: "360px"} , 400, "swing", 
+                function(){ google.maps.event.trigger(map, 'resize'); map.setCenter(center); });
     };
 
     ext.set_zoom = function(zoom){
@@ -92,7 +93,7 @@ new(function() {
     };
 
     ext.walk = function() {
-        street_view.setPano((street_view.getLinks()[0].pano))
+        street_view.setPano((street_view.getLinks()[0].pano));
     };
 
     var descriptor = {
