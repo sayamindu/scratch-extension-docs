@@ -129,7 +129,7 @@ new(function() {
       blocks: [
          //['', 'set voice to %m.voices', 'set_voice', ''],
          ['w', 'speak %s', 'speak_text', 'Hello!'],
-         ['w', 'read %s as a tweet', 'read_tweet', 'Hello!'],
+         ['w', 'speak %s as a tweet', 'read_tweet', 'Hello!'],
          ['w', 'say %s in a %m.lang accent', 'speak_text_in', 'Hello!', 'English (U.K)'],
          ['w', 'translate %s from %m.lang to %m.lang', 'translate_and_speak', 'Hello!', 'English', 'Spanish (Spain)']
       ],
